@@ -1,6 +1,7 @@
 # Compiled class file and target folder
 *.class
 **/target/**
+effective-pom.xml
 
 # Log file
 *.log
