@@ -1,8 +1,7 @@
 package study;
 import java.io.IOException;
-import java.time.LocalDate;
 
-import calendar.Calendar;
+import encaapsulation.Employee;
 
 /**
  * Hello world!
@@ -12,8 +11,9 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-        LocalDate ld = LocalDate.now();
-        
-        System.out.println(Calendar.createCalendar(ld));
+        Employee emp = new Employee("Ordinar Guy");
+        Employee boss = new Employee("Boss");
+
+        System.out.println(boss.isEquals(emp));
     }
 }
