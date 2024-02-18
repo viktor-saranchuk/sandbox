@@ -36,4 +36,12 @@ public class Employee {
     public void setAge(int age) {
         this.age = age;
     }
+
+    public String show() {
+        return String.format("ta-daaa (%s)", this.name);
+    }
+
+    public final String showAgain() {
+        return "nah";
+    }
 }

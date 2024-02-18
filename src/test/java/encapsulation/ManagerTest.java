@@ -19,4 +19,15 @@ public class ManagerTest {
         man = null;
         Assert.assertEquals("CTO is not accessible", "CTO", cto.name);
     }
+
+    @Test
+    public void testSubstitution() {
+        Manager boss = new Manager("Boss", 35);
+
+        Employee emp = boss;
+
+        Assert.assertEquals("the results of show aren't equals", emp.show(), boss.show());
+
+        Assert.assertEquals("The final keyword for methods does not prevent inheritance for methods, but I can not override it", emp.showAgain(), boss.showAgain());
+    }
 }
