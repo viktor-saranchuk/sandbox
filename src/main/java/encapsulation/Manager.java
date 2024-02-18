@@ -2,6 +2,8 @@ package encapsulation;
 
 public class Manager extends Employee {
 
+    private int bonus;
+
     public Manager() {
         super("Test");
     }
@@ -12,6 +14,11 @@ public class Manager extends Employee {
 
     public String show() {
         return String.format("%sTest", super.getName());
+    }
+
+    public int setBonus(int bonus) {
+        this.bonus = bonus;
+        return bonus;
     }
     /*
     I can not override the showAgain declared in super class    

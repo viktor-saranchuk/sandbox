@@ -29,5 +29,15 @@ public class ManagerTest {
         Assert.assertEquals("the results of show aren't equals", emp.show(), boss.show());
 
         Assert.assertEquals("The final keyword for methods does not prevent inheritance for methods, but I can not override it", emp.showAgain(), boss.showAgain());
+
+        Employee emp2 = new Manager("Bob", 35);
+        
+        boolean theBonusIsSet = false;
+        if (emp instanceof Manager chef) {
+            chef.setBonus(1000);
+            theBonusIsSet = true;
+        }
+
+        Assert.assertTrue("The bonus must be set", theBonusIsSet);
     }
 }
