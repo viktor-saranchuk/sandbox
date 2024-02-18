@@ -33,11 +33,17 @@ public class ManagerTest {
         Employee emp2 = new Manager("Bob", 35);
         
         boolean theBonusIsSet = false;
-        if (emp instanceof Manager chef) {
+        if (emp2 instanceof Manager chef) {
             chef.setBonus(1000);
             theBonusIsSet = true;
         }
 
         Assert.assertTrue("The bonus must be set", theBonusIsSet);
+
+        /* 
+        chef2 cannot be resolved
+        boolean answer = emp2 instanceof Manager chef2;
+        chef2.setBonus(2000);
+        */
     }
 }
