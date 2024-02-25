@@ -1,11 +1,16 @@
 
 import java.io.IOException;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EventListener;
 import java.util.stream.Stream;
 
 import javax.swing.*;
+
+import encapsulation.Employee;
+import encapsulation.Outer;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -21,7 +26,69 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-        playMethodReferences2();
+        playWithAnonymousClass();
+    }
+
+    public static void playWithAnonymousClass() {
+        //looks like in JS var bob = { name: "Bob" };
+        var bob = new Object() {
+            private String name = "Bob";
+
+            public String getName() {
+                System.out.println(this.getClass()); //App$1
+                return this.name;
+            }
+        };
+
+        var john = new Object() {
+            private String name = "John";
+
+            public String getName() {
+                System.out.println(this.getClass()); //App$2
+                return this.name;
+            }
+        };
+
+        //var test = new App$1(); //isn't working
+
+        ArrayList<String> al = new ArrayList<String>() {{ add("Harry"); add("Tony"); }}; // anonymous classes can be added
+
+        ArrayList<Employee> employees = new ArrayList<Employee>() {
+            { 
+                //object initialization block
+                add(new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }); 
+            }
+        };
+
+        System.out.println(employees.get(0).getName());
+
+        employees = new ArrayList<Employee>() {{ 
+            new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }; //compiler allows, fails during invocation
+        }};
+
+        System.out.println(employees.size()); //0
+
+        /*employees = new ArrayList<Employee>() {
+            new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }; //doesn't work
+        };
+        
+        System.out.println(employees.get(0).getName());*/
+
+        System.out.println(bob.getName());
+        System.out.println(john.getName());
+
+        System.out.println(new Object(){}.getClass().getEnclosingClass());
+    }
+
+    public static void playWithInnerClass2() {
+        Outer.Inner.doSomething(); // no need to create instance of inner class in order to reach static method
+
+        Outer.Inner inner = new Outer().new Inner(); //weird
+        inner.doSomething(); // Static method is accessible through instance, however there is the warning
+    }
+
+    public static void playWithInnerClass() {
+        Outer.InnerStatic.doSomething();
     }
 
     public static void playMethodReferences2() {
