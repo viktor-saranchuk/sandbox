@@ -3,15 +3,12 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.EventListener;
-import java.util.stream.Stream;
 
 import javax.swing.*;
 
 import encapsulation.Employee;
 import encapsulation.Outer;
 
-import java.awt.*;
 import java.awt.event.ActionListener;
 
 import inheritance.Do;
@@ -26,7 +23,8 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-        playWithAnonymousClass();
+        int x = -1;
+        assert x >= 0;
     }
 
     public static void playWithAnonymousClass() {
