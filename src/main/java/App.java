@@ -3,6 +3,8 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
 
 import javax.swing.*;
 
@@ -15,6 +17,9 @@ import inheritance.Do;
 import inheritance.InstanceClass;
 import inheritance.TimePrinter;
 import inheritance.Worker;
+
+import collections.*;
+import java.util.TreeSet;
 /**
  * Hello world!
  *
@@ -23,8 +28,35 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-        int x = -1;
-        assert x >= 0;
+        playWithCollections3();
+    }
+
+    public static void playWithCollections3() {
+        var parts = new TreeSet<Item>();
+        parts.add(new Item("Toaster", 1234));
+        parts.add(new Item("Widget", 4562));
+        parts.add(new Item("Modem", 9912));
+        System.out.println(parts);
+
+        // Does it make sense if compareTo is implemented and no need to have key extractor?
+        var sortByDescription = new TreeSet<Item>(Comparator.comparing(Item::getDescription));
+        sortByDescription.addAll(parts);
+    }
+
+    public static void playWithCollections2() {
+        var s = new CollectionsGame().playWithTreeSets();
+
+        System.out.println(s.toString());
+    }
+
+    public static void playWithCollections() {
+        var col = new HashSet<String>();
+
+        col.add("1");
+        col.add("2");
+        col.add("2");
+
+        System.out.println(col.toString());
     }
 
     public static void playWithAnonymousClass() {
@@ -171,5 +203,5 @@ public class App
             System.out.println(l);
         }
     }
-
+    
 }
