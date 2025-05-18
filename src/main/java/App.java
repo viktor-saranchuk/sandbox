@@ -1,25 +1,13 @@
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-
+import java.util.*;
 import javax.swing.*;
-
-import encapsulation.Employee;
-import encapsulation.Outer;
-
 import java.awt.event.ActionListener;
 
-import inheritance.Do;
-import inheritance.InstanceClass;
-import inheritance.TimePrinter;
-import inheritance.Worker;
-
+import inheritance.*;
 import collections.*;
-import java.util.TreeSet;
+import encapsulation.*;
 /**
  * Hello world!
  *
@@ -28,7 +16,15 @@ public class App
 {
     public static void main( String[] args ) throws IOException
     {
-        playWithCollections3();
+        playWithCollections4();
+    }
+
+    public static void playWithCollections4() {
+        HashMap<String, Integer> m = new HashMap<String, Integer>();
+        m.put("1", 1);
+        m.put("2", 2);
+
+        m.forEach((k, v) -> System.out.println(k + " -> " + v));
     }
 
     public static void playWithCollections3() {
