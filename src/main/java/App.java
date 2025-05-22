@@ -1,203 +1,26 @@
 
 import java.io.IOException;
-import java.math.BigInteger;
-import java.util.*;
-import javax.swing.*;
-import java.awt.event.ActionListener;
-
-import inheritance.*;
-import collections.*;
-import encapsulation.*;
+import java.util.Date;
+import java.util.Objects;
 /**
  * Hello world!
  *
  */
-public class App 
-{
-    public static void main( String[] args ) throws IOException
-    {
-        playWithCollections4();
-    }
+public class App {
+    public static void main( String[] args ) throws IOException{
+        Employee employee1 = new Employee("Alice");
+        Employee employee2 = new Employee("Bob");
 
-    public static void playWithCollections4() {
-        HashMap<String, Integer> m = new HashMap<String, Integer>();
-        m.put("1", 1);
-        m.put("2", 2);
+        System.out.println(employee1.compareTo(employee2));
+        System.out.println("Access static variable: " + Employee.defaultName);
+        System.out.println("Access staic via instance: " + employee1.defaultName);
+        System.out.println(new Employee("Bobby").defaultName);
 
-        m.forEach((k, v) -> System.out.println(k + " -> " + v));
-    }
-
-    public static void playWithCollections3() {
-        var parts = new TreeSet<Item>();
-        parts.add(new Item("Toaster", 1234));
-        parts.add(new Item("Widget", 4562));
-        parts.add(new Item("Modem", 9912));
-        System.out.println(parts);
-
-        // Does it make sense if compareTo is implemented and no need to have key extractor?
-        var sortByDescription = new TreeSet<Item>(Comparator.comparing(Item::getDescription));
-        sortByDescription.addAll(parts);
-    }
-
-    public static void playWithCollections2() {
-        var s = new CollectionsGame().playWithTreeSets();
-
-        System.out.println(s.toString());
-    }
-
-    public static void playWithCollections() {
-        var col = new HashSet<String>();
-
-        col.add("1");
-        col.add("2");
-        col.add("2");
-
-        System.out.println(col.toString());
-    }
-
-    public static void playWithAnonymousClass() {
-        //looks like in JS var bob = { name: "Bob" };
-        var bob = new Object() {
-            private String name = "Bob";
-
-            public String getName() {
-                System.out.println(this.getClass()); //App$1
-                return this.name;
-            }
-        };
-
-        var john = new Object() {
-            private String name = "John";
-
-            public String getName() {
-                System.out.println(this.getClass()); //App$2
-                return this.name;
-            }
-        };
-
-        //var test = new App$1(); //isn't working
-
-        ArrayList<String> al = new ArrayList<String>() {{ add("Harry"); add("Tony"); }}; // anonymous classes can be added
-
-        ArrayList<Employee> employees = new ArrayList<Employee>() {
-            { 
-                //object initialization block
-                add(new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }); 
-            }
-        };
-
-        System.out.println(employees.get(0).getName());
-
-        employees = new ArrayList<Employee>() {{ 
-            new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }; //compiler allows, fails during invocation
-        }};
-
-        System.out.println(employees.size()); //0
-
-        /*employees = new ArrayList<Employee>() {
-            new Employee("Name") { public String getName() { return "Fake " + super.getName(); } }; //doesn't work
-        };
+        try {
+            Employee employee3 = new Employee(null);
+        } catch (NullPointerException e) {
+            System.out.println("Caught exception: " + e.getMessage());
+        }
         
-        System.out.println(employees.get(0).getName());*/
-
-        System.out.println(bob.getName());
-        System.out.println(john.getName());
-
-        System.out.println(new Object(){}.getClass().getEnclosingClass());
     }
-
-    public static void playWithInnerClass2() {
-        Outer.Inner.doSomething(); // no need to create instance of inner class in order to reach static method
-
-        Outer.Inner inner = new Outer().new Inner(); //weird
-        inner.doSomething(); // Static method is accessible through instance, however there is the warning
-    }
-
-    public static void playWithInnerClass() {
-        Outer.InnerStatic.doSomething();
-    }
-
-    public static void playMethodReferences2() {
-        var test = "3".transform(BigInteger::new);
-        System.out.println(test.getClass());
-    }
-
-    public static void playLambda4() {
-        Timer t = null;
-
-        for (var i = 0; i < 10; i++) {
-
-            //illegal. i must be final or effectively final
-            //ActionListener listener = event -> System.out.println("CTRL+C or CMD+C. " + i);
-
-            //legal
-            var b = i;
-            ActionListener listener = event -> System.out.println("CTRL+C or CMD+C. " + b);
-            if (t == null) {
-                t = new Timer(500, listener);
-                continue;
-            }
-
-            t.addActionListener(listener);
-        }
-
-        t.start();
-
-
-        while (true) {
-            
-        }
-    }
-
-    public static void playLambda3() {
-        var text = "test";
-
-        // text can not be reassigned in the code. So it must be final or effectively final
-        ActionListener listener = event -> System.out.println("CTRL+C or CMD+C. " + text);
-
-        new Timer(1000, event -> System.out.println("CTRL+C or CMD+C. %s")).start();
-        //text = "stop";
-        while (true) {
-            
-        }
-    }
-
-    public static void playMethodReferences() {
-        String[] arr = new String[]{"1", "3", "2"};
-
-        Arrays.sort(arr, InstanceClass::compareTo);
-
-        System.out.println(arr[0] + " " + arr[1] + " " + arr[2]);
-    }
-
-    public static void playLambda2() {
-        Worker worker = new Worker();
-
-        worker.work1(() -> System.out.println("Hello"));
-
-        Do job = new Do();
-        worker.work1(job);
-        worker.work2(job);
-    }
-
-    public static void playLambda() {
-        new Timer(1000, event -> System.out.println("CTRL+C or CMD+C")).start();
-        while (true) {
-            
-        }
-    }
-
-    public static void playEventListener() {
-        StringBuilder sb = new StringBuilder("CTRL+C or CMD + C to exit. ");
-
-        new Timer(1000, new TimePrinter(sb)).start();
-
-        int l = sb.length();
-
-        while(l < 30) {
-            l = sb.length();
-            System.out.println(l);
-        }
-    }
-    
 }
